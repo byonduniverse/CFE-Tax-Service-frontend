@@ -28,16 +28,23 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const { username, password } = values
-      const data = login({
+      login({
         username,
         password,
+      }).then((user) => {
+        const { token } = user.data
+        localStorage.setItem('token', token.token)
+        if (token) {
+          toast.success('Login is successful.')
+          if (user.data.data.role === 'admin') {
+            navigate('../clients')
+          } else {
+            navigate('../files')
+          }
+        }
+      }).catch((err) => {
+        toast.error(err.error)
       })
-      const { token } = data
-      if (token) {
-        localStorage.setItem('token', token)
-        toast.success('Login is successful.')
-        navigate('../files')
-      }
     }
   })
 
