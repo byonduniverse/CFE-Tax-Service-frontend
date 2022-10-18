@@ -18,7 +18,7 @@ const Header = () => {
     <Box sx={{ height: '60px', backgroundColor: 'primary.main' }} color='white'>
       <Container maxWidth="lg" sx={{ height: '100%', display: 'flex' }}>
         <Navbar sx={{ fontSize: '25px' }} to='#'>
-          TAX SERVICE
+          CFE TAX SERVICES
         </Navbar>
         <Box sx={{ marginLeft: 'auto', height: '100%', display: 'flex' }}>
           {localStorage.getItem('token') ? (

@@ -1,5 +1,9 @@
 import axios from 'axios'
 
-export const login = async (user) => {
-  await axios.post(`http://localhost:4000/api/login`, user)
+import { BASE_URL } from '../config'
+
+export const login = (user) => axios.post(`${BASE_URL}/auth/login`, user)
+export const clients = () => {
+  const token = localStorage.getItem('token')
+  return axios.get(`${BASE_URL}/users`, { header: { "Authorization": `Bearer ${token}` } })
 }
