@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import Login from './containers/Login'
+import Clients from './containers/Clients'
 
 const AuthRouter = () => {
   return (
@@ -12,7 +13,11 @@ const AuthRouter = () => {
 }
 
 const UserRouter = () => {
-  return <></>
+  return (
+    <Routes>
+      <Route path="/clients" element={<Clients />} />
+    </Routes>
+  )
 }
 
 const Router = () => {
