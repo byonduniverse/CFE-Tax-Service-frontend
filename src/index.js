@@ -2,10 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ThemeProvider } from '@mui/private-theming'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-import './index.css'
 
+import './index.css'
 import App from './App'
 import theme from './theme'
+import { CurrentUserProvider } from './contexts/currentUser'
 import reportWebVitals from './reportWebVitals'
 
 const client = new ApolloClient({
@@ -17,7 +18,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <ApolloProvider client={client}>
     <ThemeProvider theme={theme}>
-      <App />
+      <CurrentUserProvider>
+        <App />
+      </CurrentUserProvider>
     </ThemeProvider>
   </ApolloProvider>
 )

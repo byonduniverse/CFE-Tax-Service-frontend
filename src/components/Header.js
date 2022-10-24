@@ -15,20 +15,20 @@ const Header = () => {
   const navigate = useNavigate()
 
   return (
-    <Box sx={{ height: '60px', backgroundColor: 'primary.main' }} color='white'>
-      <Container maxWidth="lg" sx={{ height: '100%', display: 'flex' }}>
-        <Navbar sx={{ fontSize: '25px' }} to='#'>
+    <Box sx={{ height: '60px', backgroundColor: 'primary.dark' }} color='white'>
+      <Container maxWidth="xl" sx={{ height: '100%', display: 'flex' }}>
+        <Navbar sx={{ fontSize: '25px', pointer: 'cursor', textDecoration: 'auto' }} to='#'>
           CFE TAX SERVICES
         </Navbar>
-        <Box sx={{ marginLeft: 'auto', height: '100%', display: 'flex' }}>
+        <Box sx={{ marginLeft: 'auto', height: '100%', display: 'flex', cursor: 'pointer' }}>
           {localStorage.getItem('token') ? (
             <p className="pointer-cursor" onClick={() => {
               localStorage.removeItem('token')
-              navigate('../login')
+              navigate('/login')
             }}>Logout</p>
           ) : (
             <>
-              <Navbar to="/login">Login</Navbar>
+              <Navbar to="/login" sx={{ cursor: 'pointer' }}>Login</Navbar>
             </>
           )}
         </Box>

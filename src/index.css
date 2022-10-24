@@ -1,3 +1,27 @@
+body {
+  margin: 0px;
+}
+
 .css-1oqv2c0-MuiPaper-root-MuiCard-root {
   box-shadow: 0px 2px 10px 5px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
+}
+
+.css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root:active { 
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.css-1rkuc4a-MuiContainer-root {
+  padding: 0px !important;
+}
+
+.css-dqlnnr-MuiContainer-root {
+  padding: 0px !important;
+}
+
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+  box-shadow: 0px 2px 10px 3px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
