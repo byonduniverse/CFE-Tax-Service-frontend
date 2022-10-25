@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Box, Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
+
+import { CurrentUserContext } from '../contexts/currentUser'
 
 const Navbar = styled(Link)`
   display: flex;
@@ -13,6 +15,7 @@ const Navbar = styled(Link)`
 
 const Header = () => {
   const navigate = useNavigate()
+  const value = useContext(CurrentUserContext)
 
   return (
     <Box sx={{ height: '60px', backgroundColor: 'primary.dark' }} color='white'>
@@ -24,6 +27,7 @@ const Header = () => {
           {localStorage.getItem('token') ? (
             <p className="pointer-cursor" onClick={() => {
               localStorage.removeItem('token')
+              value.createCurrentUser({})
               navigate('/login')
             }}>Logout</p>
           ) : (

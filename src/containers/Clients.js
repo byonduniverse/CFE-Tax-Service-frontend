@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Paper,
@@ -15,7 +15,8 @@ import {
 import { Edit, Delete } from '@mui/icons-material'
 import { styled } from '@mui/material/styles'
 
-import { clients } from '../api/apiCaller'
+import { CurrentUserContext } from '../contexts/currentUser'
+import { getClients } from '../api/apiCaller'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,13 +40,17 @@ const Clients = () => {
   const [page, setPage] = useState(0)
   const [users, setUsers] = useState([])
   const [rowsPerPage, setRowsPerPage] = useState(10)
+  const value = useContext(CurrentUserContext)
   const navigate = useNavigate()
 
   useEffect(() => {
-    clients().then((data) => {
-      const ClientContext = React.createContext(data.data.users)
-      setUsers(data.data.users)
-    })
+    if (value?.currentUser?.role !== 'admin') {
+      navigate('/files')
+    } else {
+      getClients().then((data) => {
+        setUsers(data.data.users)
+      })
+    }
   }, [])
 
   const handleChangePage = (event, newPage) => {
@@ -77,8 +82,8 @@ const Clients = () => {
               users && users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((user) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={user._id} onClick={() => {
-                      navigate('../files')
+                    <TableRow hover xs={{ cursor: 'pointer' }} role="checkbox" tabIndex={-1} key={user._id} onClick={() => {
+                      navigate(`/files/${user._id}`)
                     }}>
                       {columns.map((column) => {
                         const values = {

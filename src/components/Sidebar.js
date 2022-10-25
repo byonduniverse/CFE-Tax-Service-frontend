@@ -32,6 +32,7 @@ const Sidebar = () => {
   } else if (!value.currentUser || !localStorage.getItem('token')) {
     return <></>
   }
+
   return (
     <Box
       sx={{
