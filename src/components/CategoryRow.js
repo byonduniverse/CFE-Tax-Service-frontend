@@ -20,7 +20,7 @@ import download from 'downloadjs'
 import InfoModal from './InfoModal'
 import { BASE_URL } from '../config'
 import RenameFolderModal from './RenameFolderModal'
-import { deleteCategory } from '../api/apiCaller'
+import { deleteCategory, deleteFile } from '../api/apiCaller'
 import ConfirmModal from './ConfirmModal'
 
 const FileCell = styled(TableCell)`
@@ -102,12 +102,20 @@ const CategoryRow = (props) => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleDelete = () => {
-    deleteCategory(row).then(() => {
-      setFlag(!flag)
-    }).catch(err => {
-      toast.error(err.error)
-    })
+  const handleDelete = (type) => {
+    if (type === 'category') {
+      deleteCategory(row).then(() => {
+        setFlag(!flag)
+      }).catch(err => {
+        toast.error(err.error)
+      })
+    } else {
+      deleteFile(row.files[currentRow]).then(() => {
+        setFlag(!flag)
+      }).catch(err => {
+        toast.error(err.error)
+      })
+    }
   }
 
   const handleCategoryAction = (event) => {
@@ -129,7 +137,7 @@ const CategoryRow = (props) => {
         <TableCell align="center">
           {row?.files?.length || '0'}
         </TableCell>
-        <TableCell>
+        <TableCell align="center">
           <IconButton
             id="category"
             aria-label="category"
@@ -229,7 +237,7 @@ const CategoryRow = (props) => {
           </Collapse>
         </TableCell>
       </TableRow>
-      <ConfirmModal open={confirmOpen} setOpen={setConfirmOpen} title="Delete" content={`Do you want to delete a ${confirmType}?`} handleDelete={handleDelete} />
+      <ConfirmModal open={confirmOpen} setOpen={setConfirmOpen} title="Delete" content={`Do you want to delete a ${confirmType}?`} handleDelete={() => handleDelete(confirmType)} />
       <InfoModal open={infoOpen} setOpen={setInfoOpen} file={fileInfo}></InfoModal>
       <RenameFolderModal open={categoryOpen} setOpen={setCategoryOpen} category={{ _id: row._id, name: row.name }} />
     </>

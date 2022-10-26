@@ -12,7 +12,7 @@ const ConfirmModal = (props) => {
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{content}</DialogContent>
       <DialogActions>
-        <Button variant="standard" onClick={() => {
+        <Button variant="contained" onClick={() => {
           handleDelete()
           handleCancel()
         }}>Delete</Button>

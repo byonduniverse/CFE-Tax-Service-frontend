@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import {
   Dialog,
   InputLabel,
@@ -13,13 +14,14 @@ import {
 import { Add, Close } from '@mui/icons-material'
 import { toast } from 'react-toastify'
 
+import { CategoriesContext } from '../contexts/categories'
 import { uploadFiles } from '../api/apiCaller'
-import { useParams } from 'react-router-dom'
 
 const FileUploadModal = (props) => {
   const { open, setOpen, categories, selected } = props
   const [files, setFiles] = useState([])
   const userId = useParams().id
+  const value = useContext(CategoriesContext)
   const [category, setCategory] = useState(selected || (categories && categories[0]))
 
   const onFileChange = (event) => {
@@ -45,6 +47,7 @@ const FileUploadModal = (props) => {
 
     uploadFiles(formData)
       .then(data => {
+        value.addFiles(data?.data?.files)
         setOpen(false)
       })
       .catch(error => {

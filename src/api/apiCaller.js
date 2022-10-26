@@ -54,6 +54,11 @@ export const uploadFiles = (formData) => {
   return axios.post(`${BASE_URL}/files`, formData, config)
 }
 
+export const deleteFile = (data) => {
+  const token = localStorage.getItem('token')
+  return axios.delete(`${BASE_URL}/files/${data._id}`, { headers: { "Authorization": `Bearer ${token}` } })
+}
+
 export const downloadFile = (file) => {
   const token = localStorage.getItem('token')
   const config = {
