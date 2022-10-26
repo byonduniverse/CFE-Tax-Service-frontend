@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Card, Grid, Divider, TextField, Button, Typography } from '@mui/material'
 import { ExitToApp, CloudDownload, CloudUpload } from '@mui/icons-material'
@@ -8,6 +8,7 @@ import { useFormik } from 'formik'
 import * as yup from 'yup'
 
 import { login } from '../api/apiCaller'
+import { CurrentUserContext } from '../contexts/currentUser'
 
 const AuthInput = styled(TextField)`
   display: flex;
@@ -23,6 +24,8 @@ const validationSchema = yup.object({
 const Login = () => {
   const navigate = useNavigate()
   const initValues = { username: '', password: '' }
+  const value = useContext(CurrentUserContext)
+
   const formik = useFormik({
     initialValues: initValues,
     validationSchema: validationSchema,
@@ -33,6 +36,7 @@ const Login = () => {
         password,
       }).then((user) => {
         const { token } = user.data
+        value.createCurrentUser(user.data.data)
         localStorage.setItem('token', token.token)
         if (token) {
           toast.success('Login is successful.')
@@ -49,8 +53,8 @@ const Login = () => {
   })
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '100px' }}>
-      <Card sx={{ display: 'flex', padding: '20px' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', paddingTop: '100px', height: window.innerHeight - 176 }}>
+      <Card sx={{ display: 'flex', padding: '20px', height: 'fit-content', boxShadow: '0px 2px 10px 4px rgb(0 0 0 / 20%)' }}>
         <Grid container spacing={2}>
           <Grid item md>
             <Box sx={{ minWidth: '200px', maxWidth: '300px', padding: "20px" }}>
@@ -58,7 +62,7 @@ const Login = () => {
                 <Typography variant="h5" sx={{ display: 'flex', marginBottom: '20px', justifyContent: 'center' }}>Login</Typography>
                 <AuthInput id="username" type="text" label="username" variant="standard" onChange={formik.handleChange}></AuthInput>
                 <AuthInput id="password" type="password" label="password" variant="standard" onChange={formik.handleChange}></AuthInput>
-                <Button fullWidth variant="contained" type="submit" sx={{ marginTop: 3 }} onClick={() => { }}>
+                <Button fullWidth variant="contained" type="submit" sx={{ marginTop: 3 }}>
                   <ExitToApp sx={{ marginRight: 1 }} />
                   Login
                 </Button>

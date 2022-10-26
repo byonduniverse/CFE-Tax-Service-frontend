@@ -27,7 +27,7 @@ const Sidebar = () => {
     },
   ]
   const value = useContext(CurrentUserContext)
-  if (value && value.currentUser && value.currentUser.role === 'admin') {
+  if (value?.currentUser?.role === 'admin') {
     sides.unshift({ name: 'Clients', url: '/clients' })
   } else if (!value.currentUser || !localStorage.getItem('token')) {
     return <></>

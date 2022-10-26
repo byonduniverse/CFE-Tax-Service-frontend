@@ -46,7 +46,6 @@ const InfoModal = (props) => {
     label: 'Expiration Date',
     value: file.expiration_at,
   }]
-  console.log('open', file)
 
   return (
     <Modal aria-labelledby="info-modal-title" open={open} onClose={() => setOpen(false)} closeAfterTransition BackdropComponent={Backdrop} BackdropProps={{

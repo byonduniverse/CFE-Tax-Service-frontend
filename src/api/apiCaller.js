@@ -14,11 +14,30 @@ export const getClients = () => {
   return axios.get(`${BASE_URL}/users`, { headers: { "Authorization": `Bearer ${token}` } })
 }
 
-export const getCategories = () => {
+export const getCategories = (id) => {
   const token = localStorage.getItem('token')
-  return axios.get(`${BASE_URL}/categories`, { headers: { "Authorization": `Bearer ${token}` } })
+  if (id) {
+    return axios.get(`${BASE_URL}/categories/all/${id}`, { headers: { "Authorization": `Bearer ${token}` } })
+  } else {
+    return axios.get(`${BASE_URL}/categories`, { headers: { "Authorization": `Bearer ${token}` } })
+  }
 }
 
+export const createCategory = (data) => {
+  const token = localStorage.getItem('token')
+  return axios.post(`${BASE_URL}/categories`, data, { headers: { "Authorization": `Bearer ${token}` } })
+}
+
+export const updateCategory = (data) => {
+  const token = localStorage.getItem('token')
+  return axios.put(`${BASE_URL}/categories/${data._id}`, data, { headers: { "Authorization": `Bearer ${token}` } })
+}
+
+export const deleteCategory = (data) => {
+  const token = localStorage.getItem('token')
+  return axios.delete(`${BASE_URL}/categories/${data._id}`, { headers: { "Authorization": `Bearer ${token}` } })
+
+}
 export const getFiles = (id) => {
   const token = localStorage.getItem('token')
   return axios.get(`${BASE_URL}/files/${id}`, { headers: { "Authorization": `Bearer ${token}` } })
